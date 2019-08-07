@@ -29,15 +29,24 @@
     target.textContent = placeHolder + word.substring(loc);
   }
 
-  function updaTimer(){
+  function updateTimer(){
     const timeLeft = startTime + timeLimit - Date.now();
     timerLabel.textContent = (timeLeft / 1000).toFixed(2);
+
+    const timeoutId = setTimeout(() => {
+      updateTimer();
+    }, 10);
+
+    if (timeLeft < 0){
+      clearTimeout(timeoutId);
+      alert('Game Over');
+    }
   }
 
   window.addEventListener('click', () => {
     updateTarget();
     startTime = Date.now();
-    updaTimer();
+    updateTimer();
   });
 
   window.addEventListener('keyup', e => {
