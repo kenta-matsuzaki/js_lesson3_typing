@@ -12,12 +12,14 @@
   let loc = 0;
   let score = 0;
   let miss = 0;
+  const timeLimit = 3 * 1000;
+  let startTime;
   
   const target = document.getElementById('target');
   const scoreLabel = document.getElementById('score');
   const missLabel = document.getElementById('miss');
+  const timerLabel = document.getElementById('timer');
   
-  target.textContent = word;
 
   function updateTarget(){
     let placeHolder = '';
@@ -26,6 +28,17 @@
     }
     target.textContent = placeHolder + word.substring(loc);
   }
+
+  function updaTimer(){
+    const timeLeft = startTime + timeLimit - Date.now();
+    timerLabel.textContent = (timeLeft / 1000).toFixed(2);
+  }
+
+  window.addEventListener('click', () => {
+    updateTarget();
+    startTime = Date.now();
+    updaTimer();
+  });
 
   window.addEventListener('keyup', e => {
     if (e.key === word[loc]){
