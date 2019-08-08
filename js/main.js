@@ -1,5 +1,5 @@
 'use strict';
-
+a
 {
   const words = [
     'apple',
